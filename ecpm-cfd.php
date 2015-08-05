@@ -4,7 +4,7 @@ Plugin Name: Custom Field Data Icons
 Plugin URI: http://www.easycpmods.com
 Description: Custom Field Data Icons is a lightweight plugin that will display custom field data with icons on front page. It requires Classipress theme to be installed.
 Author: Easy CP Mods
-Version: 1.0.0
+Version: 1.0.1
 Author URI: http://www.easycpmods.com
 */
 
