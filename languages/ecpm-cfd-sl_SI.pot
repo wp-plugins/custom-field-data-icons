@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the EasyCPMods Custom Field Data Icons.
 msgid ""
 msgstr ""
-"Project-Id-Version: EasyCPMods Custom Field Data Icons 1.0.0\n"
+"Project-Id-Version: EasyCPMods Custom Field Data Icons 1.0.1\n"
 "Report-Msgid-Bugs-To: http://www.easycpmods.com\n"
 "POT-Creation-Date: 2015-07-30 08:51:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-08-04 08:17+0100\n"
+"PO-Revision-Date: 2015-08-05 08:31+0100\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: sl_SI\n"
 "X-Generator: Poedit 1.7.5\n"
@@ -19,38 +19,38 @@ msgstr ""
 msgid "Custom Field Data Icons"
 msgstr ""
 
-#: ecpm-cfd.php:224
+#: ecpm-cfd.php:234
 msgid "Position custom data"
 msgstr "Pozicija podatkov"
 
-#: ecpm-cfd.php:228
-msgid "Max icons to show"
-msgstr "Maksimalno število ikon"
-
-#: ecpm-cfd.php:225
+#: ecpm-cfd.php:235
 msgid "Left"
 msgstr "Levo"
 
-#: ecpm-cfd.php:226
+#: ecpm-cfd.php:236
 msgid "Right"
 msgstr "Desno"
 
-#: ecpm-cfd.php:237
+#: ecpm-cfd.php:238
+msgid "Max icons to show"
+msgstr "Maksimalno število ikon"
+
+#: ecpm-cfd.php:247
 msgid "Fields to show"
 msgstr "Prikaži polja"
 
-#: ecpm-cfd.php:240
+#: ecpm-cfd.php:253
 msgid "Enable:"
 msgstr "Vklopi:"
 
-#: ecpm-cfd.php:241
+#: ecpm-cfd.php:254
 msgid "Selected field:"
 msgstr "Izbrano polje:"
 
-#: ecpm-cfd.php:242
+#: ecpm-cfd.php:255
 msgid "Selected image:"
 msgstr "Izbrana slika:"
 
-#: ecpm-cfd.php:298
+#: ecpm-cfd.php:311
 msgid "Save settings"
 msgstr "Shrani nastavitve"
