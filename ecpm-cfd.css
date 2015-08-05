@@ -1,0 +1,6 @@
+div#custom-stats-left {float:left;}
+div#custom-stats-right {float:right;}
+.custom-stats {clear:both; font-size:11px; padding-right:12px;}
+.custom-stats-icon { height:16px; width:16px; padding-right:5px; margin-top:-5px;}
+
+.cfd-img-admin {float:right; margin-top:6px;}
