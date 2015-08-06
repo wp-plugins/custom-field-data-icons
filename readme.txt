@@ -4,7 +4,7 @@ Donate link: http://www.easycpmods.com
 Tags: custom, field, data, icons, classipress, appthemes
 Requires at least: 3.5
 Tested up to: 4.2.4
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ When you setup a <a href="https://www.appthemes.com/themes/classipress/?aid=2655
 
 With this plugin you will put custom fields with icons on front page, so the users can quickly see main specifications of the items being sold when scrolling trough ads.
 
-You can see a working site with this functionality <a href="http://www.slosurf.com">here</a>.
+You can see a working site with this functionality <a href="http://www.slosurf.com" target="_blank">here</a>.
 
 == Installation ==
 
@@ -36,6 +36,10 @@ Waiting for first question.
 
 == Changelog ==
 
+= 1.1.0 =
+* Added sorting options
+* Fixed some bugs
+ 
 = 1.0.0 =
 * Initial version
 

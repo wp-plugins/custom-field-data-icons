@@ -4,7 +4,7 @@ Plugin Name: Custom Field Data Icons
 Plugin URI: http://www.easycpmods.com
 Description: Custom Field Data Icons is a lightweight plugin that will display custom field data with icons on front page. It requires Classipress theme to be installed.
 Author: Easy CP Mods
-Version: 1.0.2
+Version: 1.1.0
 Author URI: http://www.easycpmods.com
 */
 
@@ -47,6 +47,7 @@ function ecpm_cfd_activate() {
     update_option( 'ecpm_cfd_position', 'left' );
     update_option( 'ecpm_cfd_show_icons', '5' );
     update_option( 'ecpm_cfd_max_fields', '10' );
+    update_option( 'ecpm_cfd_sort_fields', 'nosort' );
   }
 }
 
@@ -58,6 +59,7 @@ function ecpm_cfd_uninstall() {
   delete_option( 'ecpm_cfd_sel_images' );
   delete_option( 'ecpm_cfd_show_icons' );
   delete_option( 'ecpm_cfd_max_fields' );
+  delete_option( 'ecpm_cfd_sort_fields' );
 }
 
 function ecpm_cfd_plugins_loaded() {
@@ -103,12 +105,16 @@ function ecpm_cfd_getImageFilename($field_name){
   $ecpm_cfd_sel_fields = get_option('ecpm_cfd_sel_fields');
   $ecpm_cfd_sel_images = get_option('ecpm_cfd_sel_images');
   
-  $array_key = array_search($field_name, $ecpm_cfd_sel_fields);
-  
-  if ( $ecpm_cfd_enable_flds[$array_key] != 'on' || !$array_key )
-    return "off";
-  else
-    return $ecpm_cfd_sel_images[$array_key]; 
+  $arr_count = 0;
+  foreach ( $ecpm_cfd_sel_fields as $ecpm_cfd_sel_field ){
+    $arr_count++;
+    if ( $field_name == $ecpm_cfd_sel_field ){
+      return array($ecpm_cfd_sel_images[$arr_count-1], $arr_count);
+    }
+    
+  }
+  return array("", "off");
+   
 }
 
 // display some custom fields on the loop ad listing
@@ -128,34 +134,53 @@ function ecpm_get_loop_ad_details() {
   if ( ! $cp_results )
     return;
 
+  $ecpm_cfd_sort_fields = get_option('ecpm_cfd_sort_fields');
   $ecpm_cfd_show_icons = get_option('ecpm_cfd_show_icons');
   $showing_icon = 1;
-  
+  $ecpm_cfd_out_arr = array();
   $ecpm_cfd_position = get_option('ecpm_cfd_position');
   echo '<div id="custom-stats-'.$ecpm_cfd_position.'">';
 
   foreach ( $cp_results as $cp_result ) {
-    if ($showing_icon <= $ecpm_cfd_show_icons ) {
-      
-      $image_filename = ecpm_cfd_getImageFilename($cp_result->field_name);
-  
-      if ($image_filename != 'off') {
-        $post_meta_val = get_post_meta( $post->ID, $cp_result->field_name, true );
-        if ( empty( $post_meta_val ) )
-          continue;
+    $ecpm_cfd_ret_value = ecpm_cfd_getImageFilename($cp_result->field_name);
+    $cfd_image_filename = $ecpm_cfd_ret_value[0];
+    $cfd_image_index = $ecpm_cfd_ret_value[1];
     
-        $args = array( 'value' => $post_meta_val, 'label' => $cp_result->field_label, 'id' => $cp_result->field_name, 'class' => '' );
-        $args = apply_filters( 'cp_ad_details_' . $cp_result->field_name, $args, $cp_result, $post, $location );
+    if ( $cfd_image_index != 'off' ) {
+      $post_meta_val = get_post_meta( $post->ID, $cp_result->field_name, true );
+      if ( empty( $post_meta_val ) )
+        continue;
+  
+      $args = array( 'value' => $post_meta_val, 'label' => $cp_result->field_label, 'id' => $cp_result->field_name, 'class' => '' );
+      $args = apply_filters( 'cp_ad_details_' . $cp_result->field_name, $args, $cp_result, $post, $location );
 
-        $showing_icon++;
-        $image_html = '';
-        if ( $image_filename )
-           $image_html = '<img class="custom-stats-icon" src="'. plugins_url('images/'. $image_filename, __FILE__). '" title="'. esc_html( translate( $args['label'], APP_TD ) ).'" width="16" height="16">';
-           
-        if ( $args )
-          echo '<span class="custom-stats">'.$image_html . $args['value'] . '</span>';
+      $image_html = '';
+      if ( $cfd_image_filename )
+         $image_html = '<img class="custom-stats-icon" src="'. plugins_url('images/'. $cfd_image_filename, __FILE__). '" title="'. esc_html( translate( $args['label'], APP_TD ) ).'" width="16" height="16">';
+         
+      if ( $args ) {
+        $ecpm_cfd_out_arr[$cfd_image_index-1] = '<span class="custom-stats">'.$image_html . $args['value'] . '</span>';
+
+        if ( in_array($ecpm_cfd_sort_fields, array('nosort', '') ) )
+          echo $ecpm_cfd_out_arr[$cfd_image_index-1]; 
       }
     }
+  }
+  
+  if ( in_array($ecpm_cfd_sort_fields, array('random', 'number') ) ) {
+    if ( $ecpm_cfd_sort_fields == 'random' ) 
+      shuffle($ecpm_cfd_out_arr);
+    else
+      ksort($ecpm_cfd_out_arr);
+        
+    foreach ( $ecpm_cfd_out_arr as $arr_value ) {
+      if ($showing_icon <= $ecpm_cfd_show_icons ) {
+        if ( $arr_value ) {
+          echo $arr_value;
+          $showing_icon++;
+        }
+      }
+    }   
   }
   echo '</div>';
 }
@@ -180,6 +205,11 @@ function ecpm_cfd_settings_page_callback() {
         $ecpm_cfd_max_fields = get_option('ecpm_cfd_max_fields');
       else
         $ecpm_cfd_max_fields = $_POST[ 'ecpm_cfd_max_fields' ];    
+    
+    if ( !isset($_POST[ 'ecpm_cfd_sort_fields' ]) )
+        $ecpm_cfd_sort_fields = get_option('ecpm_cfd_sort_fields');
+      else
+        $ecpm_cfd_sort_fields = $_POST[ 'ecpm_cfd_sort_fields' ];    
     
     if ( !isset($_POST[ 'ecpm_cfd_show_icons' ]) )
         $ecpm_cfd_show_icons = '';
@@ -210,6 +240,7 @@ function ecpm_cfd_settings_page_callback() {
     update_option( 'ecpm_cfd_sel_fields', $ecpm_cfd_sel_fields ); 
     update_option( 'ecpm_cfd_sel_images', $ecpm_cfd_sel_images );
     update_option( 'ecpm_cfd_max_fields', $ecpm_cfd_max_fields );
+    update_option( 'ecpm_cfd_sort_fields', $ecpm_cfd_sort_fields );
     
     ?>
         <div id="message" class="updated">
@@ -224,35 +255,50 @@ function ecpm_cfd_settings_page_callback() {
   $ecpm_cfd_sel_fields = get_option('ecpm_cfd_sel_fields');
   $ecpm_cfd_sel_images = get_option('ecpm_cfd_sel_images');
   $ecpm_cfd_max_fields = get_option('ecpm_cfd_max_fields');
-  
+  $ecpm_cfd_sort_fields = get_option('ecpm_cfd_sort_fields');
   ?>
   
 		<div id="cfdsetting">
-			<h1><?php echo _e('Custom Field Data Icons', ECPM_DDC); ?></h1>
+			<h1><?php echo _e('Custom Field Data Icons', ECPM_CFD); ?></h1>
   			<form id='cfdsettingform' method="post" action="">
           <hr>
-          <h3><?php echo _e('Position custom data', ECPM_CFD); ?></h3>
-          <Input type="radio" Name="ecpm_cfd_position" value="left" <?php echo ($ecpm_cfd_position == 'left' ? 'checked':'') ;?>><?php _e('Left', ECPM_CFD);?>
+          <p>
+          <strong><?php echo _e('Position custom data:', ECPM_CFD); ?></strong>
+          <br><Input type="radio" Name="ecpm_cfd_position" value="left" <?php echo ($ecpm_cfd_position == 'left' ? 'checked':'') ;?>><?php _e('Left', ECPM_CFD);?>
           <br><Input type="radio" Name="ecpm_cfd_position" value="right" <?php echo ($ecpm_cfd_position == 'right' ? 'checked':'') ;?>><?php _e('Right', ECPM_CFD);?>
+          </p>
 
-          <h3><?php echo _e('Max icons to show:', ECPM_DDC); ?></h3>
+          <p>
+          <strong><?php echo _e('Max icons to show:', ECPM_CFD); ?></strong>
           <select name="ecpm_cfd_show_icons">
             <?php
             for ($i = 1; $i<=10; $i++)
               echo '<option value="'.$i.'"'. ($ecpm_cfd_show_icons == $i ? 'selected':'') .">".$i."</option>";
             ?>
           </select>
+          </p>
 
-          <br>
-          <h3><?php echo _e('Fields to show', ECPM_CFD); ?>
+          <p>
+          <strong><?php echo _e('Sorting:', ECPM_CFD); ?></strong>
+          <select name="ecpm_cfd_sort_fields">
+             <option value="nosort" <?php echo ($ecpm_cfd_sort_fields == 'nosort' ? 'selected':'') ;?>>No sorting</option>
+             <option value="number" <?php echo ($ecpm_cfd_sort_fields == 'number' ? 'selected':'') ;?>>By numbers</option>
+             <option value="random" <?php echo ($ecpm_cfd_sort_fields == 'random' ? 'selected':'') ;?>>Random</option>
+          </select>
+          </p>
+
+          <p>
+          <strong><?php echo _e('Fields to show:', ECPM_CFD); ?>
              <Input type='text' size='2' Name ='ecpm_cfd_max_fields' value='<?php echo $ecpm_cfd_max_fields;?>'>
-          </h3>
+          </strong>
+          </p>
 
-          <table width="600px">
+          <p>
+          <table width="600px" cellspacing="0" cellpadding="3" border="0">
             <tr>
-              <td width="100px" colspan="2"><?php echo _e('Enable', ECPM_CFD); ?></td>
-              <td width="200px"><?php echo _e('Selected field:', ECPM_CFD); ?></td>
-              <td width="300px"><?php echo _e('Selected image:', ECPM_CFD); ?></tr>
+              <td width="50px" colspan="2" align="center"><?php echo _e('Enable', ECPM_CFD); ?></td>
+              <td align="center"><?php echo _e('Field', ECPM_CFD); ?></td>
+              <td align="center" colspan="2"><?php echo _e('Icon', ECPM_CFD); ?></td>
             </tr>
           <?php 
             
@@ -263,9 +309,9 @@ function ecpm_cfd_settings_page_callback() {
               $item = 0;
               ?>
               <tr>
-              <td><?php echo $i+1 .". ";?></td>
-              <td><Input type='checkbox' Name='ecpm_cfd_enable_fld_<?php echo $i;?>' <?php echo ($ecpm_cfd_enable_flds[$i] == 'on' ? 'checked':'') ;?> ></td>
-              <td>
+              <td align="center"><?php echo $i+1 .". ";?></td>
+              <td align="center"><Input type='checkbox' Name='ecpm_cfd_enable_fld_<?php echo $i;?>' <?php echo ($ecpm_cfd_enable_flds[$i] == 'on' ? 'checked':'') ;?> ></td>
+              <td align="center">
               <select name="ecpm_cfd_field_<?php echo $i;?>">
                 <option value="" <?php echo (!$ecpm_cfd_sel_fields[$i] ? 'selected':'') ;?>>-- No field --</option>
               <?php
@@ -278,7 +324,7 @@ function ecpm_cfd_settings_page_callback() {
               ?>
               </select>
               </td>
-              <td>
+              <td align="center">
               <select name="ecpm_cfd_image_<?php echo $i;?>" >
                 <option value="" <?php echo (!$ecpm_cfd_sel_images[$i] ? 'selected':'') ;?>>-- No image --</option>
               <?php
@@ -291,6 +337,8 @@ function ecpm_cfd_settings_page_callback() {
 							  } 
               ?>
               </select>
+              </td>
+              <td align="center">
               <?php
               if ( $ecpm_cfd_sel_images[$i] ) { ?>
                 <span class="cfd-img-admin"><img id="ecpm_image_<?php echo $i;?>" src="<?php echo plugins_url('images/'. $ecpm_cfd_sel_images[$i], __FILE__);?>"></span>
@@ -305,6 +353,7 @@ function ecpm_cfd_settings_page_callback() {
           
           </table>
           
+          </p>
           <hr> 
           
   				<p class="submit">

@@ -2,55 +2,59 @@
 # This file is distributed under the same license as the EasyCPMods Custom Field Data Icons.
 msgid ""
 msgstr ""
-"Project-Id-Version: EasyCPMods Custom Field Data Icons 1.0.1\n"
+"Project-Id-Version: EasyCPMods Custom Field Data Icons 1.1.0\n"
 "Report-Msgid-Bugs-To: http://www.easycpmods.com\n"
 "POT-Creation-Date: 2015-07-30 10:14:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-08-05 08:31+0100\n"
+"PO-Revision-Date: 2015-08-06 07:46+0100\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: en\n"
 "X-Generator: Poedit 1.7.5\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
-#: ecpm-cfd.php:221
+#: ecpm-cfd.php:262
 msgid "Custom Field Data Icons"
 msgstr ""
 
-#: ecpm-cfd.php:234
-msgid "Position custom data"
+#: ecpm-cfd.php:266
+msgid "Position custom data:"
 msgstr ""
 
-#: ecpm-cfd.php:235
+#: ecpm-cfd.php:267
 msgid "Left"
 msgstr ""
 
-#: ecpm-cfd.php:236
+#: ecpm-cfd.php:268
 msgid "Right"
 msgstr ""
 
-#: ecpm-cfd.php:238
-msgid "Max icons to show"
+#: ecpm-cfd.php:272
+msgid "Max icons to show:"
 msgstr ""
 
-#: ecpm-cfd.php:247
-msgid "Fields to show"
+#: ecpm-cfd.php:282
+msgid "Sorting:"
 msgstr ""
 
-#: ecpm-cfd.php:253
-msgid "Enable:"
+#: ecpm-cfd.php:291
+msgid "Fields to show:"
 msgstr ""
 
-#: ecpm-cfd.php:254
-msgid "Selected field:"
+#: ecpm-cfd.php:299
+msgid "Enable"
 msgstr ""
 
-#: ecpm-cfd.php:255
-msgid "Selected image:"
+#: ecpm-cfd.php:300
+msgid "Field"
 msgstr ""
 
-#: ecpm-cfd.php:311
+#: ecpm-cfd.php:301
+msgid "Icon"
+msgstr ""
+
+#: ecpm-cfd.php:360
 msgid "Save settings"
 msgstr ""
