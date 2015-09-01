@@ -3,8 +3,8 @@ Contributors: easycpmods
 Donate link: http://www.easycpmods.com
 Tags: custom, field, data, icons, classipress, appthemes
 Requires at least: 3.5
-Tested up to: 4.2.4
-Stable tag: 1.1.2
+Tested up to: 4.3
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,17 @@ Waiting for first question.
 
 == Changelog ==
 
+= 1.2.2 =
+* Fixed a bug that was showing icons on single ad page
+
+= 1.2.1 =
+* Fixed some bugs
+* Some more optimization
+
+= 1.2.0 =
+* Added new icons
+* Plugin optimization
+ 
 = 1.1.2 =
 * Fixed a bug that was showing unselected fields
 
@@ -57,4 +68,5 @@ Feature list:
 * Sort these icons the way you please (no sorting, predefined or randomly)
 * Make your site look different than all other
 * Works with child themes also
+* Add your own icons
 * Language files if you would like to translate the plugin

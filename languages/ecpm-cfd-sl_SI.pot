@@ -2,59 +2,79 @@
 # This file is distributed under the same license as the EasyCPMods Custom Field Data Icons.
 msgid ""
 msgstr ""
-"Project-Id-Version: EasyCPMods Custom Field Data Icons 1.1.2\n"
+"Project-Id-Version: EasyCPMods Custom Field Data Icons 1.2.1\n"
 "Report-Msgid-Bugs-To: http://www.easycpmods.com\n"
 "POT-Creation-Date: 2015-07-30 08:51:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-08-07 07:16+0100\n"
+"PO-Revision-Date: 2015-08-25 07:31+0100\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: sl_SI\n"
 "X-Generator: Poedit 1.7.5\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
-#: ecpm-cfd.php:260
+#: ecpm-cfd.php:254
 msgid "Custom Field Data Icons"
 msgstr ""
 
-#: ecpm-cfd.php:264
-msgid "Position custom data:"
+#: ecpm-cfd.php:259
+msgid "Horizontal position:"
 msgstr "Pozicija podatkov:"
 
-#: ecpm-cfd.php:265
+#: ecpm-cfd.php:260
 msgid "Left"
 msgstr "Levo"
 
-#: ecpm-cfd.php:266
+#: ecpm-cfd.php:261
 msgid "Right"
 msgstr "Desno"
 
-#: ecpm-cfd.php:270
+#: ecpm-cfd.php:265
 msgid "Max icons to show:"
 msgstr "Maksimalno število ikon:"
 
-#: ecpm-cfd.php:280
+#: ecpm-cfd.php:275
 msgid "Sorting:"
 msgstr "Razvrščanje"
 
-#: ecpm-cfd.php:289
+#: ecpm-cfd.php:277
+msgid "No sorting"
+msgstr "Brez"
+
+#: ecpm-cfd.php:278
+msgid "By numbers"
+msgstr "Po številkah"
+
+#: ecpm-cfd.php:279
+msgid "Random"
+msgstr "Naključno"
+
+#: ecpm-cfd.php:284
 msgid "Fields to show:"
 msgstr "Prikaži polja:"
 
-#: ecpm-cfd.php:298
+#: ecpm-cfd.php:292
 msgid "Enable"
 msgstr "Vklopi"
 
-#: ecpm-cfd.php:299
+#: ecpm-cfd.php:293
 msgid "Field"
 msgstr "Polje"
 
-#: ecpm-cfd.php:300
+#: ecpm-cfd.php:294
 msgid "Icon"
 msgstr "Ikona"
 
-#: ecpm-cfd.php:358
+#: ecpm-cfd.php:307
+msgid "-- No field --"
+msgstr "-- Ni polja --"
+
+#: ecpm-cfd.php:321
+msgid "-- No image --"
+msgstr "-- Brez slike --"
+
+#: ecpm-cfd.php:352
 msgid "Save settings"
 msgstr "Shrani nastavitve"
